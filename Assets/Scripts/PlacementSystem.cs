@@ -17,10 +17,13 @@ namespace GridSystem
         [SerializeField] private SOGridObjects gridObjectsDatabase;
         private int selectedObjectedIndex = -1;
 
+        private GridData gridData;
+
         private void Start()
         {
             StopPlacements();
             selectedObjectedIndex = 0;
+            gridData = new();
         }
 
         private void OnEnable()
@@ -48,8 +51,22 @@ namespace GridSystem
         {
             Vector3 mousePosition = inputManager.GetSelectedMapPosition();
             Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-            GameObject gridObject = Instantiate(gridObjectsDatabase.gridObjects[selectedObjectedIndex].Prefab);
-            gridObject.transform.position = grid.CellToWorld(gridPosition);
+
+            if (IsGridPlacementValid(gridPosition, selectedObjectedIndex))
+            {
+                GameObject gridObject = Instantiate(gridObjectsDatabase.gridObjects[selectedObjectedIndex].Prefab);
+                gridObject.transform.position = grid.CellToWorld(gridPosition);
+                gridData.AddObjectsAt(gridPosition,
+                    gridObjectsDatabase.gridObjects[selectedObjectedIndex].GridSize,
+                    gridObjectsDatabase.gridObjects[selectedObjectedIndex].ID,
+                    selectedObjectedIndex);
+            }
+
+        }
+
+        private bool IsGridPlacementValid(Vector3Int gridPosition, int selectedObjectedIndex)
+        {
+            return gridData.CanPlaceObjectsAt(gridPosition, gridObjectsDatabase.gridObjects[selectedObjectedIndex].GridSize);
         }
 
         private void StopPlacements()
