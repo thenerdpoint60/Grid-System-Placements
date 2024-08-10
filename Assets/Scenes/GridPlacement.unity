@@ -515,7 +515,7 @@ MonoBehaviour:
   mainCamera: {fileID: 330585545}
   placementLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
 --- !u!4 &529720852
 Transform:
   m_ObjectHideFlags: 0
@@ -613,6 +613,8 @@ MonoBehaviour:
   cellIndicator: {fileID: 1477326994}
   inputManager: {fileID: 529720851}
   grid: {fileID: 1095804860}
+  gridObjectsDatabase: {fileID: 11400000, guid: f8a0c6c92ee625a459accce0e43a592f,
+    type: 2}
 --- !u!4 &845016493
 Transform:
   m_ObjectHideFlags: 0
@@ -868,7 +870,7 @@ GameObject:
   - component: {fileID: 1510336651}
   - component: {fileID: 1510336650}
   - component: {fileID: 1510336649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GridShader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
